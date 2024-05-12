@@ -32,7 +32,6 @@ def search_species(city):
 
     cites = species_data[city]
 
-
     return cites
 
 def display_species(species_list, city_name):
@@ -49,8 +48,7 @@ def display_species(species_list, city_name):
         print(f" {name} (Pest Status: {status})") 
         
 def search_sightings(taxonid, city): 
-    return [{"properties":{"TaxonID": taxonid, "StartDate": "1999-11-15", "LocalityDetails": city, "SiteCode": "INCIDENTAL"}}] 
-
+    return [{"properties":{"TaxonID": taxonid, "StartDate": "1999-11-15", "LocalityDetails": city, "SiteCode": "INCIDENTAL"}}]
 
 def display_sightings(sightings): 
     print("Animal Sightings") 
@@ -64,3 +62,49 @@ def display_sightings(sightings):
         locality = sighting["properties"]["LocalityDetails"] 
 
         print(f"Start Date:{start_date}, Locality: {locality}")
+
+def filter_venomous(species_list):
+    return [species for species in species_list if species["Species"]["PestStatus"] == "Venomous"]
+
+def main():
+    while True:
+        user_input = input("wildlife> ")
+
+        if user_input.lower() == "help":
+            display_menu()
+        elif user_input.lower().startswith("species"):
+            input_parts = user_input.lower().split(" ")
+
+            if len(input_parts) == 2:
+                city = input_parts[1]
+                species_list = search_species(city)
+
+                display_species(species_list, city)
+
+            elif len(input_parts) == 3 and input_parts[2] == 'venomous':
+                city = input_parts[1]
+                species_list = search_species(city)
+                venomous_species = filter_venomous(species_list)
+                display_species(venomous_species, city + " (Venomous)")
+            else:
+                print("Invalid command format: Please use 'species <city>'.")
+        elif user_input.lower().startswith("sightings"):
+            input_parts = user_input.lower().split(" ")
+
+            if len(input_parts) == 3:
+                city = input_parts[1]
+                taxonid = input_parts[2]
+
+                sightings = search_sightings(taxonid, city)
+                display_sightings(sightings)
+            else:
+                print("Invalid command format: Please use 'sightings <species> <city>'.")
+
+        elif user_input.lower() == "exit":
+            print("Exiting the application")
+            break
+        else:
+            print('Command not recognized')
+
+if __name__ == "__main__":
+    main()
