@@ -34,3 +34,33 @@ def search_species(city):
 
 
     return cites
+
+def display_species(species_list, city_name):
+     print(f"Search found for {city_name}") 
+     print("=============") 
+
+     if len(species_list) == 0: 
+        print(f"No Search found for {city_name}") 
+
+     for species in species_list: 
+        name = species["Species"]["AcceptedCommonName"]
+        status = species["Species"]["PestStatus"] 
+
+        print(f" {name} (Pest Status: {status})") 
+        
+def search_sightings(taxonid, city): 
+    return [{"properties":{"TaxonID": taxonid, "StartDate": "1999-11-15", "LocalityDetails": city, "SiteCode": "INCIDENTAL"}}] 
+
+
+def display_sightings(sightings): 
+    print("Animal Sightings") 
+    print("=============") 
+
+    if len(sightings) == 0:
+        print("No result founds") 
+
+    for sighting in sightings:
+        start_date = sighting["properties"]["StartDate"] 
+        locality = sighting["properties"]["LocalityDetails"] 
+
+        print(f"Start Date:{start_date}, Locality: {locality}")
