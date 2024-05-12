@@ -1,5 +1,5 @@
 """
-Student Name: <SHARAD SHARMA>, <GAURI NEUPANE>, <SAKAR KHATIWADA>
+Student Name: SHARAD SHARMA, GAURI NEUPANE, SAKAR KHATIWADA
 """
 def display_menu():
     print("Help")
