@@ -39,5 +39,3 @@ def gps_coordinate(city):
 
         # Return None to indicate an error occurred
         return None
-
-        
